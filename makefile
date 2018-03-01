@@ -1,5 +1,5 @@
 ############################
-# Project: num2cast_2.0     #
+# Project: num2cast_3.0     #
 ############################
 
 ####################
@@ -11,6 +11,8 @@ SRCS     = ./num2cast.c ./num2cast.h
 OBJS     = ./num2cast.o 
 LIBS     = 
 BINS     = ./num2cast.a
+EXES     = ./clinum
+SRCEXE   = ./cliente.c
 
 RM       = rm -f
 CC       = gcc
@@ -25,7 +27,7 @@ LFLAGS   =
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before $(BINS) all-after
+all: all-before $(BINS) $(EXES) all-after
 
 clean: clean-custom
 	${RM} $(OBJS) $(BINS)
@@ -36,4 +38,6 @@ $(BINS): $(OBJS)
 
 $(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) $(INCS) -c $(SRCS) $(LFLAGS)
-	
+
+$(EXES): $(BINS) $(SRCEXE)
+	gcc $(SRCEXE) -o $(EXES) -I. -L. $(BINS)
